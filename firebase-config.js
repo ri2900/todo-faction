@@ -1,3 +1,4 @@
+
 const firebaseConfig = {
   apiKey: "AIzaSyBDd2R8FefFOqSe2muB6Zk1jzZ_QhUzNKI",
   authDomain: "todo-faction.firebaseapp.com",
