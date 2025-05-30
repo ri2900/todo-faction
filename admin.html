@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel - Upload Product</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    input, textarea, button { margin: 5px 0; padding: 10px; width: 100%; max-width: 400px; }
+  </style>
+</head>
+<body>
+  <h1>Upload T-Shirt Product</h1>
+  <input type="text" id="title" placeholder="Title" required><br>
+  <textarea id="description" placeholder="Description"></textarea><br>
+  <input type="number" id="price" placeholder="Price" required><br>
+  <input type="text" id="sizes" placeholder="Sizes (comma separated, e.g., S,M,L)"><br>
+  <input type="file" id="image"><br>
+  <button onclick="uploadProduct()">Add Product</button>
+  <p id="status"></p>
+
+  <script type="module" src="firebase-config.js"></script>
+  <script>
+    async function uploadProduct() {
+      const title = document.getElementById("title").value;
+      const description = document.getElementById("description").value;
+      const price = document.getElementById("price").value;
+      const sizes = document.getElementById("sizes").value.split(',').map(s => s.trim());
+      const file = document.getElementById("image").files[0];
+      const status = document.getElementById("status");
+
+      if (!file) return alert("Please select an image file.");
+
+      const storageRef = firebase.storage().ref("tshirt-images/" + Date.now() + "_" + file.name);
+      const uploadTask = storageRef.put(file);
+
+      status.textContent = "Uploading image...";
+
+      uploadTask.on("state_changed", null, (error) => {
+        alert("Upload failed: " + error.message);
+      }, async () => {
+        const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+        const product = { title, description, price, sizes, image: downloadURL };
+        await firebase.firestore().collection("tshirts").add(product);
+        status.textContent = "Product added successfully!";
+      });
+    }
+  </script>
+</body>
+</html>
+    
