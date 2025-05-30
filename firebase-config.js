@@ -9,4 +9,4 @@ const firebaseConfig = {
   appId: "1:342141679101:web:8f5197955351aa68939594"
 };
 firebase.initializeApp(firebaseConfig);
-    
+    allow read, write: if true;
