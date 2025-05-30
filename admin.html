@@ -1,54 +1,69 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Panel - Upload Product</title>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
-  <style>
-    body { font-family: sans-serif; padding: 20px; }
-    input, textarea, button { margin: 5px 0; padding: 10px; width: 100%; max-width: 400px; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel - TODO Faction</title>
 </head>
 <body>
-  <h1>Upload T-Shirt Product</h1>
-  <input type="text" id="title" placeholder="Title" required><br>
-  <textarea id="description" placeholder="Description"></textarea><br>
-  <input type="number" id="price" placeholder="Price" required><br>
-  <input type="text" id="sizes" placeholder="Sizes (comma separated, e.g., S,M,L)"><br>
-  <input type="file" id="image"><br>
-  <button onclick="uploadProduct()">Add Product</button>
-  <p id="status"></p>
+  <h1>Admin Panel (T-Shirts)</h1>
+  <form id="product-form">
+    <input type="text" id="title" placeholder="Title" required><br><br>
+    <input type="text" id="description" placeholder="Description" required><br><br>
+    <input type="number" id="price" placeholder="Price (BDT)" required><br><br>
+    <input type="text" id="image" placeholder="Image URL" required><br><br>
+    <input type="text" id="sizes" placeholder="Sizes (comma separated)" required><br><br>
+    <input type="password" id="adminPass" placeholder="Admin Password" required><br><br>
+    <button type="submit">Add Product</button>
+  </form>
 
-  <script type="module" src="firebase-config.js"></script>
-  <script>
-    async function uploadProduct() {
-      const title = document.getElementById("title").value;
-      const description = document.getElementById("description").value;
-      const price = document.getElementById("price").value;
-      const sizes = document.getElementById("sizes").value.split(',').map(s => s.trim());
-      const file = document.getElementById("image").files[0];
-      const status = document.getElementById("status");
+  <p id="msg"></p>
 
-      if (!file) return alert("Please select an image file.");
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
-      const storageRef = firebase.storage().ref("tshirt-images/" + Date.now() + "_" + file.name);
-      const uploadTask = storageRef.put(file);
+    const firebaseConfig = {
+      apiKey: "AIzaSyBDd2R8FefFOqSe2muB6Zk1jzZ_QhUzNKI",
+      authDomain: "todo-faction.firebaseapp.com",
+      projectId: "todo-faction",
+      storageBucket: "todo-faction.firebasestorage.app",
+      messagingSenderId: "342141679101",
+      appId: "1:342141679101:web:8f5197955351aa68939594"
+    };
 
-      status.textContent = "Uploading image...";
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const form = document.getElementById('product-form');
+    const msg = document.getElementById('msg');
 
-      uploadTask.on("state_changed", null, (error) => {
-        alert("Upload failed: " + error.message);
-      }, async () => {
-        const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
-        const product = { title, description, price, sizes, image: downloadURL };
-        await firebase.firestore().collection("tshirts").add(product);
-        status.textContent = "Product added successfully!";
-      });
-    }
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const password = document.getElementById('adminPass').value;
+      if (password !== "8011") {
+        msg.innerText = "❌ Wrong admin password";
+        return;
+      }
+      const title = document.getElementById('title').value;
+      const description = document.getElementById('description').value;
+      const price = document.getElementById('price').value;
+      const image = document.getElementById('image').value;
+      const sizes = document.getElementById('sizes').value.split(',').map(s => s.trim());
+
+      try {
+        await addDoc(collection(db, "tshirts"), {
+          title,
+          description,
+          price,
+          image,
+          sizes
+        });
+        msg.innerText = "✅ Product added successfully!";
+        form.reset();
+      } catch (error) {
+        msg.innerText = "❌ Failed to add product: " + error.message;
+      }
+    });
   </script>
 </body>
 </html>
-    
