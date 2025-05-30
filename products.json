@@ -1,20 +1,16 @@
 [
     {
-        "title": "Classic Black Tee",
-        "price": 499,
-        "description": "Comfortable and stylish black t-shirt for men.",
-        "image": "https://via.placeholder.com/250x250.png?text=Black+Tee",
-        "size": ["S", "M", "L", "XL"],
-        "category": "Plain",
-        "stock": 20
-    },
-    {
-        "title": "Graphic White Tee",
-        "price": 599,
-        "description": "White t-shirt with cool graphic design.",
-        "image": "https://via.placeholder.com/250x250.png?text=Graphic+Tee",
-        "size": ["S", "M", "L", "XL"],
-        "category": "Graphic",
-        "stock": 15
+        "title": "Black",
+        "price": 1600,
+        "description": "Made in bd",
+        "image": "https://img.drz.lazcdn.com/static/bd/p/43c915f425b0d3db669d7be219ac91e5.jpg_720x720q80.jpg_.webp",
+        "size": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "category": "N/a",
+        "stock": 1
     }
 ]
