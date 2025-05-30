@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase.js"></script>
+</head>
+<body>
+  <h1>Admin Panel</h1>
+  <input type="password" id="admin-password" placeholder="Enter Admin Password" />
+  <div id="admin-panel" style="display: none;">
+    <h2>Add Product</h2>
+    <input placeholder="Title" id="title" />
+    <input placeholder="Price (BDT)" id="price" type="number" />
+    <input placeholder="Image URL" id="image" />
+    <input placeholder="Sizes (comma separated)" id="sizes" />
+    <input placeholder="Description" id="description" />
+    <button id="add-product">Add Product</button>
+
+    <h2>Update Contact Links</h2>
+    <input placeholder="WhatsApp Link" id="whatsapp" />
+    <input placeholder="Telegram Link" id="telegram" />
+    <button id="update-links">Update Links</button>
+  </div>
+</body>
+</html>
