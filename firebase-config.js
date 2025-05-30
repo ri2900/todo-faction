@@ -1,5 +1,3 @@
-
-// Replace with your Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBDd2R8FefFOqSe2muB6Zk1jzZ_QhUzNKI",
   authDomain: "todo-faction.firebaseapp.com",
@@ -8,5 +6,5 @@ const firebaseConfig = {
   messagingSenderId: "342141679101",
   appId: "1:342141679101:web:8f5197955351aa68939594"
 };
+
 firebase.initializeApp(firebaseConfig);
-    allow read, write: if true;
