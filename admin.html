@@ -1,38 +1,29 @@
-
 <!DOCTYPE html>
 <html>
 <head>
   <title>Admin Panel - Add Product</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    input, textarea, select { display: block; margin: 10px 0; padding: 8px; width: 100%; }
+    input, textarea { display: block; margin: 10px 0; padding: 8px; width: 100%; }
     button { padding: 10px 15px; background-color: green; color: white; border: none; cursor: pointer; }
-    .hidden { display: none; }
   </style>
 </head>
 <body>
   <h1>Admin Panel</h1>
 
-  <div id="loginDiv">
-    <input type="password" id="adminPassword" placeholder="Enter Admin Password">
-    <button onclick="checkPassword()">Login</button>
-  </div>
+  <h2>Add New T-Shirt</h2>
+  <input type="text" id="title" placeholder="Product Title">
+  <textarea id="description" placeholder="Product Description"></textarea>
+  <input type="number" id="price" placeholder="Price in BDT">
+  <input type="text" id="sizes" placeholder="Sizes (comma separated)">
+  <input type="file" id="imageUpload">
+  <button onclick="uploadImageAndAddProduct()">Add Product</button>
 
-  <div id="adminPanel" class="hidden">
-    <h2>Add New T-Shirt</h2>
-    <input type="text" id="title" placeholder="Product Title">
-    <textarea id="description" placeholder="Product Description"></textarea>
-    <input type="number" id="price" placeholder="Price">
-    <input type="text" id="sizes" placeholder="Sizes (comma separated)">
-    <input type="file" id="imageUpload">
-    <button onclick="uploadImageAndAddProduct()">Add Product</button>
-
-    <h2>Update Contact Info</h2>
-    <input type="text" id="telegram" placeholder="Telegram Link">
-    <input type="text" id="whatsapp" placeholder="WhatsApp Link">
-    <input type="text" id="messenger" placeholder="Messenger Link">
-    <button onclick="updateContacts()">Update Contacts</button>
-  </div>
+  <h2>Update Contact Info</h2>
+  <input type="text" id="telegram" placeholder="Telegram Link">
+  <input type="text" id="whatsapp" placeholder="WhatsApp Link">
+  <input type="text" id="messenger" placeholder="Messenger Link">
+  <button onclick="updateContacts()">Update Contacts</button>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
